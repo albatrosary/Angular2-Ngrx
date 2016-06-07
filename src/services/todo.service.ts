@@ -8,12 +8,12 @@ import * as TodoActions from '../actions/todos';
 import {Observable} from 'rxjs/Observable'
 
 interface AppState {
-  todos: number;
+  todos: any;
 }
 
 @Injectable()
 export class TodoService {
-  todos: Observable<number>;
+  todos: Observable<any>;
 
   // Store -> Reducer
   constructor(private store: Store<AppState>) {
