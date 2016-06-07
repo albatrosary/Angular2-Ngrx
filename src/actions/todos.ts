@@ -6,9 +6,6 @@ export const UPDATE_TODO = 'UPDATE_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 export const COMPLETE_TODO = 'COMPLETE_TODO';
 
-
-// export const counterReducer: ActionReducer<number> = (state: number = 0, action: Action) => {
-
 export const todosReducer: ActionReducer<any> = (state = [], action: Action) => {
   console.log('ACTION:', action.type, action.payload);
   switch(action.type){

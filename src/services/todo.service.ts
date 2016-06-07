@@ -14,8 +14,7 @@ interface AppState {
 @Injectable()
 export class TodoService {
   todos: Observable<any>;
-
-  // Store -> Reducer
+  
   constructor(private store: Store<AppState>) {
     this.todos = store.select('todos');
   }
