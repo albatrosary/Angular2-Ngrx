@@ -29,5 +29,6 @@ System.config({
     // App specific barrels.
     'actions': { main: 'index' },
     'components': { main: 'index' },
+    'services': { main: 'index' },
   }
 });

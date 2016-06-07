@@ -1,22 +1,15 @@
 import {Component} from '@angular/core'
 import {Store} from '@ngrx/store';
 
-import * as TodoActions from '../../actions/todos';
-
 import {NewTodoInput} from '../todos/newtodo';
 import {TodoList} from '../todos/todolist'
 
-import {Observable} from 'rxjs/Observable'
-
-interface AppState {
-  todos: number;
-}
+import {TodoService} from '../../services/todo.service';
 
 @Component({
   selector: 'my-app',
   template: `
     <div>
-      <log-monitor></log-monitor>
       <h2>Todos</h2>
       <new-todo-input (create)="addTodo($event)"></new-todo-input>
       =========
@@ -24,47 +17,32 @@ interface AppState {
         [todos]="todos | async"
         (complete)="completeTodo($event)"
         (delete)="deleteTodo($event)"
-      ></todo-list>
-      =========
-      <div>
-        <button (click)="show('ALL')">All</button>
-        <button (click)="show('PENDING')">Pending</button>
-        <button (click)="show('COMPLETE')">Complete</button>
-      </div>
+      >
+      </todo-list>
     </div>
   `,
-  directives: [NewTodoInput, TodoList]
+  directives: [NewTodoInput, TodoList],
+  providers: [TodoService]
 })
 export class AppComponent {
-
-  todos: Observable<number>;
+  todos: any;
 
   // Store -> Reducer
-  constructor(private store: Store<AppState>) {
-    this.todos = store.select('todos');
+  constructor(private todoService: TodoService) {
+    this.todoService = todoService;
+    this.todos = this.todoService.todos
   }
+
   addTodo(newTodo) {
-    this.store.dispatch({
-      type: TodoActions.ADD_TODO,
-      payload: newTodo
-    });
+    this.todoService.addTodo(newTodo);
   }
+
   completeTodo(todo){
-    this.store.dispatch({
-      type: TodoActions.COMPLETE_TODO,
-      payload: todo
-    });
+    this.todoService.completeTodo(todo);
   }
+
   deleteTodo(todo){
-    this.store.dispatch({
-      type: TodoActions.DELETE_TODO,
-      payload: todo
-    });
-  }
-  show(filter){
-    this.store.dispatch({
-      type: TodoActions[filter]
-    });
+    this.todoService.deleteTodo(todo);
   }
 }
 　
