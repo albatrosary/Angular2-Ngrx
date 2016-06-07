@@ -1,31 +1,33 @@
-// todos reducer
 import { ActionReducer, Action } from '@ngrx/store';
 
-export const ADD_TODO = 'ADD_TODO';
-export const UPDATE_TODO = 'UPDATE_TODO';
-export const DELETE_TODO = 'DELETE_TODO';
-export const COMPLETE_TODO = 'COMPLETE_TODO';
+export const EVENTS = {
+  ADD: 'ADD',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE',
+  COMPLETE: 'COMPLETE'
+}
 
-export const todosReducer: ActionReducer<any> = (state = [], action: Action) => {
+export const todosReducer: ActionReducer<any> = (items = [], action: Action) => {
   console.log('ACTION:', action.type, action.payload);
+
   switch(action.type){
-    case ADD_TODO:
-      return state.concat([Object.assign({}, action.payload, {id: state.length + 1})]);
-    case UPDATE_TODO:
-      return state.map(todo => {
+    case EVENTS.ADD:
+      return items.concat([Object.assign({}, action.payload, {id: items.length + 1})]);
+    case EVENTS.UPDATE:
+      return items.map(todo => {
         return todo.id !== action.payload.id ?
           todo :
           Object.assign({}, todo, action.payload)
       });
-    case COMPLETE_TODO:
-      return state.map(todo => {
+    case EVENTS.COMPLETE:
+      return items.map(todo => {
         return todo.id !== action.payload.id ?
           todo :
           Object.assign({}, todo, {completed: true})
       });
-    case DELETE_TODO:
-      return state.filter(todo => todo.id !== action.payload.id);
+    case EVENTS.DELETE:
+      return items.filter(todo => todo.id !== action.payload.id);
     default:
-      return state;
+      return items;
   }
 }

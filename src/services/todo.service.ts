@@ -14,28 +14,28 @@ interface AppState {
 @Injectable()
 export class TodoService {
   todos: Observable<any>;
-  
+
   constructor(private store: Store<AppState>) {
     this.todos = store.select('todos');
   }
   
   public addTodo(newTodo) {
     this.store.dispatch({
-      type: TodoActions.ADD_TODO,
+      type: TodoActions.EVENTS.ADD,
       payload: newTodo
     });
   }
 
   public completeTodo(todo){
     this.store.dispatch({
-      type: TodoActions.COMPLETE_TODO,
+      type: TodoActions.EVENTS.COMPLETE,
       payload: todo
     });
   }
 
   public deleteTodo(todo){
     this.store.dispatch({
-      type: TodoActions.DELETE_TODO,
+      type: TodoActions.EVENTS.DELETE,
       payload: todo
     });
   }

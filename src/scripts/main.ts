@@ -4,6 +4,7 @@ import {AppComponent} from '../components'
 
 import {todosReducer} from '../actions/todos';
 
+// Provider StoreにtodosとしてtodosReducerを登録
 bootstrap(AppComponent, [
     provideStore({todos: todosReducer})  
 ]);
